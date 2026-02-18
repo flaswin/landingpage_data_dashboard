@@ -1,82 +1,48 @@
-const supabase = window.supabase.createClient(
-"YOUR_SUPABASE_URL",
-"YOUR_ANON_KEY"
-);
+<!DOCTYPE html>
+<html>
+<head>
 
-let leadsData=[];
+<title>Leads Dashboard</title>
 
-// 🔹 Check login session
-window.onload = async () => {
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
 
-const { data: { session } } = await supabase.auth.getSession();
-
-if(!session){
-window.location.href="login.html";
-}else{
-loadLeads();
+<style>
+table{
+width:100%;
+border-collapse:collapse;
 }
-
+td,th{
+border:1px solid #ccc;
+padding:8px;
 }
+</style>
 
-// 🔹 Load Leads
-async function loadLeads(){
+</head>
 
-const {data,error}=await supabase
-.from("leads")
-.select("*")
-.order("created_at",{ascending:false});
+<body>
 
-if(error){
-alert("Access Denied");
-console.log(error);
-return;
-}
+<h2>Leads Dashboard</h2>
 
-leadsData=data;
+<button onclick="logout()">Logout</button>
+<button onclick="download()">Download CSV</button>
 
-const tbody=document.getElementById("tableBody");
-tbody.innerHTML="";
-
-data.forEach(row=>{
-
-tbody.innerHTML+=`
+<table>
+<thead>
 <tr>
-<td>${row.fullname}</td>
-<td>${row.mobile}</td>
-<td>${row.semester}</td>
-<td>${row.department}</td>
-<td>${row.college}</td>
-<td>${row.created_at}</td>
+<th>Name</th>
+<th>Mobile</th>
+<th>Semester</th>
+<th>Department</th>
+<th>College</th>
+<th>Date</th>
 </tr>
-`;
+</thead>
 
-});
+<tbody id="tableBody"></tbody>
+</table>
 
-}
+<script src="dashboard.js"></script>
 
-// 🔹 Logout
-async function logout(){
-
-await supabase.auth.signOut();
-window.location.href="login.html";
-
-}
-
-// 🔹 CSV Download
-function download(){
-
-let csv="fullname,mobile,semester,department,college,created_at\n";
-
-leadsData.forEach(r=>{
-csv+=`${r.fullname},${r.mobile},${r.semester},${r.department},${r.college},${r.created_at}\n`;
-});
-
-const blob=new Blob([csv],{type:"text/csv"});
-const url=URL.createObjectURL(blob);
-
-const a=document.createElement("a");
-a.href=url;
-a.download="leads.csv";
-a.click();
-
-}
+</body>
+</html>
