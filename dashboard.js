@@ -1,25 +1,24 @@
 const supabase = window.supabase.createClient(
-"https://mficuhiqstpdwdwaayzg.supabase.co",
-"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1maWN1aGlxc3RwZHdkd2FheXpnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA4MzkwNzQsImV4cCI6MjA4NjQxNTA3NH0.WZE3Hd7XQquXuF_WaPtTLz1KFsXpfaCq-eZypbbn6pUeyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1maWN1aGlxc3RwZHdkd2FheXpnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA4MzkwNzQsImV4cCI6MjA4NjQxNTA3NH0.WZE3Hd7XQquXuF_WaPtTLz1KFsXpfaCq-eZypbbn6pU"
+"YOUR_SUPABASE_URL",
+"YOUR_ANON_KEY"
 );
 
 let leadsData=[];
 
-async function login(){
+// 🔹 Check login session
+window.onload = async () => {
 
-const {error} = await supabase.auth.signInWithPassword({
-email: document.getElementById("email").value,
-password: document.getElementById("password").value
-});
+const { data: { session } } = await supabase.auth.getSession();
 
-if(error){
-alert(error.message);
+if(!session){
+window.location.href="login.html";
 }else{
 loadLeads();
 }
 
 }
 
+// 🔹 Load Leads
 async function loadLeads(){
 
 const {data,error}=await supabase
@@ -27,10 +26,15 @@ const {data,error}=await supabase
 .select("*")
 .order("created_at",{ascending:false});
 
+if(error){
+alert("Access Denied");
+console.log(error);
+return;
+}
+
 leadsData=data;
 
 const tbody=document.getElementById("tableBody");
-
 tbody.innerHTML="";
 
 data.forEach(row=>{
@@ -50,6 +54,15 @@ tbody.innerHTML+=`
 
 }
 
+// 🔹 Logout
+async function logout(){
+
+await supabase.auth.signOut();
+window.location.href="login.html";
+
+}
+
+// 🔹 CSV Download
 function download(){
 
 let csv="fullname,mobile,semester,department,college,created_at\n";
