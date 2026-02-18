@@ -3,11 +3,15 @@ const supabase = window.supabase.createClient(
 "YOUR_ANON_KEY"
 );
 
-async function login(){
+document.getElementById("loginBtn")
+.addEventListener("click", async ()=>{
 
-const { error } = await supabase.auth.signInWithPassword({
-email: document.getElementById("email").value,
-password: document.getElementById("password").value
+const email = document.getElementById("email").value;
+const password = document.getElementById("password").value;
+
+const { data, error } = await supabase.auth.signInWithPassword({
+email: email,
+password: password
 });
 
 if(error){
@@ -16,4 +20,4 @@ alert(error.message);
 window.location.href="dashboard.html";
 }
 
-}
+});
