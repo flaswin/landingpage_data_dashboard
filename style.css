@@ -1,0 +1,74 @@
+body{
+font-family:Inter;
+background:#f5f7fa;
+margin:0;
+padding:20px;
+}
+
+.center{
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+}
+
+.card{
+background:white;
+padding:30px;
+border-radius:12px;
+box-shadow:0 4px 20px rgba(0,0,0,0.05);
+text-align:center;
+}
+
+.topbar{
+display:flex;
+justify-content:space-between;
+background:white;
+padding:18px;
+border-radius:14px;
+box-shadow:0 8px 30px rgba(0,0,0,0.05);
+margin-bottom:20px;
+}
+
+.controls{
+background:white;
+padding:15px;
+border-radius:14px;
+box-shadow:0 8px 30px rgba(0,0,0,0.05);
+margin-bottom:20px;
+}
+
+.dateHeader td{
+background:#eef2ff;
+font-weight:600;
+padding:12px;
+border-top:2px solid #6366f1;
+}
+
+table{
+width:100%;
+background:white;
+border-radius:14px;
+overflow:hidden;
+box-shadow:0 8px 30px rgba(0,0,0,0.05);
+}
+
+td,th{
+padding:14px;
+border-bottom:1px solid #f1f5f9;
+}
+
+button{
+background:#6366f1;
+color:white;
+border:none;
+padding:10px 16px;
+border-radius:10px;
+cursor:pointer;
+}
+
+input,select{
+padding:10px;
+border-radius:10px;
+border:1px solid #e5e7eb;
+}

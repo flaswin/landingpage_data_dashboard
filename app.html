@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Leads Dashboard</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+<script src="supabase.js"></script>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<div class="topbar">
+<h2>Leads Dashboard</h2>
+<button id="logoutBtn">Logout</button>
+</div>
+
+<div class="controls">
+
+<select id="dateFilter">
+<option value="today">Today</option>
+<option value="yesterday">Yesterday</option>
+<option value="last7">Last 7 Days</option>
+<option value="custom">Custom Range</option>
+<option value="all">All</option>
+</select>
+
+<input type="date" id="fromDate" style="display:none">
+<input type="date" id="toDate" style="display:none">
+
+<select id="deptFilter">
+<option value="">Department</option>
+<option value="CSE">CSE</option>
+<option value="ECE">ECE</option>
+<option value="EEE">EEE</option>
+<option value="CE">CE</option>
+<option value="ME">ME</option>
+</select>
+
+<input type="text" id="searchInput" placeholder="Search">
+
+<button id="applyFilter">Filter</button>
+<button id="exportBtn">Export Excel</button>
+
+</div>
+
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Mobile</th>
+<th>Semester</th>
+<th>Department</th>
+<th>College</th>
+<th>Time</th>
+</tr>
+</thead>
+
+<tbody id="tableBody"></tbody>
+</table>
+
+<div class="pagination">
+<button id="prevBtn">Prev</button>
+<span id="pageInfo"></span>
+<button id="nextBtn">Next</button>
+</div>
+
+<script src="app.js"></script>
+
+</body>
+</html>
